@@ -3,8 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Algorithms.iml" filepath="$PROJECT_DIR$/Algorithms.iml" />
-      <module fileurl="file://$PROJECT_DIR$/QuickUnionUF/QuikUnionUF.iml" filepath="$PROJECT_DIR$/QuickUnionUF/QuikUnionUF.iml" />
+      <module fileurl="file://$PROJECT_DIR$/QuickUnionUF/QuickUnionUF.iml" filepath="$PROJECT_DIR$/QuickUnionUF/QuickUnionUF.iml" />
       <module fileurl="file://$PROJECT_DIR$/UnionFind/UnionFind.iml" filepath="$PROJECT_DIR$/UnionFind/UnionFind.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WQUPC/WQUPC.iml" filepath="$PROJECT_DIR$/WQUPC/WQUPC.iml" />
     </modules>
   </component>
 </project>

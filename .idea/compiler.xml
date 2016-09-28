@@ -22,14 +22,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="QuikUnionUF" />
+        <module name="QuickUnionUF" />
         <module name="UnionFind" />
+        <module name="WQUPC" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Algorithms" target="1.5" />
-      <module name="QuikUnionUF" target="1.5" />
+      <module name="QuickUnionUF" target="1.5" />
       <module name="UnionFind" target="1.5" />
+      <module name="WQUPC" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
