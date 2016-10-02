@@ -9,6 +9,8 @@ public class Percolation {
 
     private int [][][] square;
     private static int N;
+    private static int TOP;
+    private static int BOTTOM;
     private WeightedQuickUnionUF union;
     private int sites = 0;
 
@@ -18,7 +20,7 @@ public class Percolation {
 
     public Percolation(int n)   {
         N = n;
-        square = new int[n+1][n][2];
+        square = new int[n][n][2];
         int counter = 0;
 
         for (int i=0; i<n ; i++){
@@ -30,25 +32,23 @@ public class Percolation {
 
         union = new WeightedQuickUnionUF(n*n+2);
 
-        square[n][0][0] = 100; //TOP
-        square[n][1][0] = 101; //BOTTOM
-        square[n][0][1] = 1;
-        square[n][1][1] = 1;
+        TOP = n * n; //TOP
+        BOTTOM = n * n + 1; //BOTTOM
     }            // create n-by-n grid, with all sites blocked
 
     public void open(int i, int j)  {
-        //if( isOpen(i,j) ) return;
+        if( isOpen(i,j) ) return;
         square[i][j][1] = 1; //open current site
         this.sites++;
 
         if(i == 0){
-            union.union(square[N][0][0], square[i][j][0]); //with virtual top
+            union.union(TOP, square[i][j][0]); //with virtual top
         }
         if(i == N-1){
-            union.union(square[N][1][0], square[i][j][0]); //with virtual bottom
+            union.union(BOTTOM, square[i][j][0]); //with virtual bottom
         }
 
-        if( (i+1) <=N && isOpen(i+1,j) ){
+        if( (i+1) <N && isOpen(i+1,j) ){
             union.union(square[i+1][j][0], square[i][j][0]); //bottom
         }
         if( (i-1) > 0 && isOpen(i-1,j) ){
@@ -63,42 +63,35 @@ public class Percolation {
     }
 
     public boolean isOpen(int i, int j) {
-        if(square[i][j][1] == 1) return true;
+        if( square[i][j][1] == 1) return true;
         return false;
     }
 
     public boolean isFull(int i, int j)  {
-        if(union.connected(square[i][j][0], square[N][0][0])) return true;
+        if( union.connected(TOP, square[i][j][0]) ) return true;
         return false;
     }
 
     public boolean percolates() {
-        return union.connected(square[N][0][0], square[N][1][0]);
+        return union.connected(TOP, BOTTOM);
     }         // does the system percolate?
-
-    public int exec(String [] a){
-        int n = Integer.parseInt(a[0]);
-
-        for(int t = 0; ; t++){
-            int i = StdRandom.uniform(n);
-            int j = StdRandom.uniform(n);
-            if( this.isOpen(i,j) ) continue;
-            this.open(i,j);
-
-            if (this.percolates() ) {
-                System.out.println("Percolation on " + this.getSites() + " site");
-                break;
-            }
-        }
-
-        return this.getSites();
-    }
 
     public static void main(String[] args) {
         long t0 = System.currentTimeMillis();
         int n = Integer.parseInt(args[0]);
 
         Percolation p = new Percolation(n);
+
+        for(int t = 0; ; t++){
+            int i = StdRandom.uniform(n);
+            int j = StdRandom.uniform(n);
+            p.open(i,j);
+
+            if (p.percolates() ) {
+                System.out.println("Percolation on " + p.getSites() + " site");
+                break;
+            }
+        }
 
         long t1 = System.currentTimeMillis();
         System.out.println(t1-t0);
