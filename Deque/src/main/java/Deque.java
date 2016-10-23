@@ -90,7 +90,25 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     public Iterator<Item> iterator() {
-        return null;
+        return new Iterator<Item>() {
+            private Node items = first;
+
+            @Override
+            public boolean hasNext() {
+                if(items != null) return true;
+                return false;
+            }
+
+            @Override
+            public Item next() {
+                if(hasNext()){
+                    Item item = items.item;
+                    items = items.next;
+                    return item;
+                }
+                return null;
+            }
+        };
     }
 
     public static void main(String[] args) {
@@ -99,10 +117,6 @@ public class Deque<Item> implements Iterable<Item> {
         deque.addLast(2);
         deque.addFirst(3);
         deque.addLast(4);
-        //System.out.println(deque.size);
-        System.out.println(deque.removeFirst());
-        System.out.println(deque.removeLast());
-        System.out.println(deque.removeFirst());
-        System.out.println(deque.removeLast());
+        for (Integer i : deque) System.out.println(i);
     }
 }
